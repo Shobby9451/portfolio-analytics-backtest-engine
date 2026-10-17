@@ -1,3 +1,5 @@
+import sqlite3
+
 import yaml
 import yfinance
 
@@ -9,13 +11,20 @@ with open("config/holdings.yaml") as f:
     config = yaml.safe_load(text)
 
 
-# Download one stock's data 
+# Download all stocks data
 
-df = yfinance.download("NVDA", config["start_date"], auto_adjust= True)
 
-# Let's see what the DF looks like
-
-print(df.head())
-print(df.tail())
-print(df.columns)
-print(df.shape)
+for holding in config["holdings"]:
+    df = yfinance.download(holding["ticker"], config["start_date"], auto_adjust = True)
+    df.columns = df.columns.get_level_values(0)
+    conn = sqlite3.connect("data/portfolio.db")
+    for date, row in df.iterrows():
+        conn.execute(
+            "INSERT OR REPLACE INTO prices (ticker, date, close, volume) VALUES ( ?, ?, ?, ?)",
+       (holding["ticker"], date.strftime("%Y-%m-%d"), float(row["Close"]), int(row["Volume"])))
+    conn.commit()
+    conn.close()
+    print(df.head())
+    print(df.tail())
+    print(df.columns)
+    print(df.shape)

@@ -1,0 +1,18 @@
+reference_date: "2026-09-24"
+reference_total_value_cad: 77424.24
+benchmark: SPY
+start_date: "2024-01-01"
+
+holdings:
+  - ticker: NVDA
+    weight: 0.34
+    currency: USD
+  - ticker: MSFT
+    weight: 0.21
+    currency: USD
+  - ticker: COPP.TO
+    weight: 0.25
+    currency: CAD
+  - ticker: HURA.TO
+    weight: 0.20
+    currency: CAD

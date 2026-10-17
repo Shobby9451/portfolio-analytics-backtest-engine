@@ -10,3 +10,4 @@ The purpose of the project is three fold:
 
 3. Offer a career signaling opportunity that can show my passion and interest for similar data driven finance career opportunities
 
+
